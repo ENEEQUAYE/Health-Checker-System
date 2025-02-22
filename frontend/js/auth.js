@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("user", JSON.stringify(data.user));
                     showFlashMessage("Login successful! Redirecting...", "success");
-                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
+                    setTimeout(() => { window.location.href = "chat.html"; }, 1500);
                 } else {
                     showFlashMessage(data.message, "danger");
                 }
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("user", JSON.stringify(data.user));
                     showFlashMessage("Registration successful! Redirecting...", "success");
-                    setTimeout(() => { window.location.href = "dashboard.html"; }, 1500);
+                    setTimeout(() => { window.location.href = "chat.html"; }, 1500);
                 } else {
                     showFlashMessage(data.message, "danger");
                 }
