@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Checker Chat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" href="../img/step.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="logo">
+            <img src="../img/step.png" alt="Health Checker Logo" width="30" height="30" border-radius="50%" >
+            <span>Health Checker</span>
+        </div>
+        <!-- <h2>Health Checker<i class="fa-solid fa-stethoscope"></i></h2> -->
+         <ul class="list-unstyled components">
+            <li><a href="#" class="nav-link active" data-target="#chat"><i class="fa-solid fa-comment-alt"></i> Chat</a></li>
+            <li><a href="#" class="nav-link" data-target="#profile"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="#" class="nav-link" data-target="#history"><i class="fa-solid fa-history"></i> History</a></li>
+            <li><a href="#" class="nav-link" data-target="#settings"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li><a href="#" class="nav-link" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Chat Area -->
+    <div  id="chat" class="main-container active">
+        <div class="chat-header">
+            <button type="button" id="sidebarCollap" class="btn btn-primary d-lg-none" title="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            Health Checker Chat
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="message bot-message">Hello! I'm your Health Checker. How do you feel today?</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Type your symptoms...">
+            <button id="send-btn" title="Send"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Profile Area -->
+    <div id="profile" class="main-container d-none">
+        <div class="chat-header">
+            <button type="button" id="sidebarCllapse" class="btn btn-primary d-lg-none" title="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            Profile
+        </div>
+        <div class="chat-body">
+            <div class="message bot-message">Your profile information will be displayed here.</div>
+        </div>
+    </div>
+
+    <!-- History Area -->
+    <div id="history" class="main-container d-none">
+        <div class="chat-header">
+            <button type="button" id="sdebarCollapse" class="btn btn-primary d-lg-none" title="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            History
+        </div>
+        <div class="chat-body">
+            <div class="message bot-message">Your medical history will be displayed here.</div>
+        </div>
+    </div>
+
+    <!-- Settings Area -->
+     <div id="settings" class="main-container d-none">
+        <div class="chat-header">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary d-lg-none" title="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+        </div>
+        <div class="chat-body">
+            <div class="message bot-message">Your settings will be displayed here.</div>
+        </div>
+     </div>
+
+     <!-- <script>
+        //sidebar menu switching
+        // Initiate the sidebar and content switching functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarCollapse = document.getElementById('sidebarCollapse');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mainContainers = document.querySelectorAll('.main-container');
+
+            // Toggle sidebar
+            sidebarCollapse.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+
+            // Switch content based on clicked link
+            navLinks.forEach(link => {
+            link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('data-target'));
+
+            // Switch content sections
+            contentSections.forEach(section => section.classList.add('d-none'));
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            if (target) target.classList.remove('d-none');
+            link.classList.add('active');
+
+            // Auto-collapse sidebar on smaller screens
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
+            }
+        });
+    });
+});
+
+     </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/chat.js"></script>
+</body>
+</html>
