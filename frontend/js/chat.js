@@ -6,13 +6,18 @@ const sendBtn = document.getElementById("send-btn");
 // Initialize variables
 let allSymptoms = [];
 let userSymptoms = [];
-let followUpQuestions = {
-    "fever": ["When did the fever start?", "How high is your temperature?"],
-    "cough": ["Is it a dry or wet cough?", "How long have you been coughing?"],
-    "headache": ["Where is the headache located?", "On a scale of 1 to 10, how severe is the headache?"],
-    "fatigue": ["How long have you been feeling fatigued?", "Do you feel fatigued all the time or does it come and go?"],
-    "sore throat": ["When did the sore throat start?", "Is it painful to swallow?"]
-};
+let followUpQuestions = [
+    "When did the ${symptom} start?",
+    "Did the ${symptom} come on suddenly or gradually?",
+    "How severe is the ${symptom}, (mild, moderate, or severe)?",
+    "Has the severity changed over time?",
+    "How often do you experience the ${symptom}?",
+    "Is it constant or does it come and go?",
+    "Does anything seem to trigger or worsen the ${symptom}?",
+    "Are there times of day when the ${symptom} is better or worse?",
+    "Are you experiencing any other symptoms along with this?",
+    "Are you experiencing any other symptoms along with this?"
+];
 let followUpAnswers = {};
 let currentSymptomIndex = 0;
 let currentFollowUpIndex = 0;
@@ -32,31 +37,50 @@ function handleUserInput(input) {
     if (currentSymptom) {
         // Store follow-up answer
         followUpAnswers[currentSymptom].push(input);
-        if (currentFollowUpIndex < followUpQuestions[currentSymptom].length) {
+        if (currentFollowUpIndex < followUpQuestions.length - 1) {
             // Ask next follow-up question
-            addMessage(followUpQuestions[currentSymptom][currentFollowUpIndex], "bot");
+            addMessage(followUpQuestions[currentFollowUpIndex].replace("${symptom}", currentSymptom), "bot");
             currentFollowUpIndex++;
         } else {
-            // All follow-up questions answered, analyze symptoms
-            currentSymptom = null;
-            currentFollowUpIndex = 0;
-            addMessage("Thank you for your responses. Analyzing your symptoms...", "bot");
-            analyzeSymptoms();
+            // Last follow-up question: Check for new symptoms
+            let newSymptomFound = false;
+            for (let symptom of allSymptoms) {
+                if (input.toLowerCase().includes(symptom.toLowerCase()) && !userSymptoms.includes(symptom)) {
+                    userSymptoms.push(symptom);
+                    currentSymptom = symptom;
+                    followUpAnswers[symptom] = [];
+                    addMessage(`You mentioned ${symptom}. ${followUpQuestions[0].replace("${symptom}", symptom)}`, "bot");
+                    currentFollowUpIndex = 1;
+                    newSymptomFound = true;
+                    break;
+                }
+            }
+            if (!newSymptomFound) {
+                // No new symptom mentioned, proceed to analyze symptoms
+                currentSymptom = null;
+                currentFollowUpIndex = 0;
+                addMessage("Thank you for your responses. Analyzing your symptoms...", "bot");
+                analyzeSymptoms();
+            }
         }
     } else {
         // Check if input matches any symptom
+        let newSymptomFound = false;
         for (let symptom of allSymptoms) {
             if (input.toLowerCase().includes(symptom.toLowerCase())) {
                 userSymptoms.push(symptom);
                 currentSymptom = symptom;
                 followUpAnswers[symptom] = [];
-                addMessage(`You mentioned ${symptom}. ${followUpQuestions[symptom][currentFollowUpIndex]}`, "bot");
-                currentFollowUpIndex++;
-                return;
+                addMessage(`You mentioned ${symptom}. ${followUpQuestions[0].replace("${symptom}", symptom)}`, "bot");
+                currentFollowUpIndex = 1;
+                newSymptomFound = true;
+                break;
             }
         }
-        // No symptom matched, ask for more details
-        addMessage("Please provide more details about your symptoms.", "bot");
+        if (!newSymptomFound) {
+            // No symptom matched, ask for more details
+            addMessage("Please provide more details about your symptoms.", "bot");
+        }
     }
 }
 
