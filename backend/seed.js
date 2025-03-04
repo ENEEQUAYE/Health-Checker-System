@@ -93,6 +93,7 @@ async function seedDatabase() {
       { name: "Urinary Tract Infection (UTI)", symptoms: ["painful urination", "frequent urination", "lower abdominal pain"], advice: "Drink plenty of water, take prescribed antibiotics, and practice good hygiene." },
       { name: "Panic Attack", symptoms: ["heart palpitations", "anxiety", "shortness of breath", "dizziness", "sweating"], advice: "Practice deep breathing techniques, stay calm, and seek medical evaluation if frequent." },
       { name: "Sleep Apnea", symptoms: ["loud snoring", "daytime fatigue", "difficulty concentrating", "headaches"], advice: "Maintain a healthy weight, avoid alcohol before bedtime, and consult a doctor for sleep studies." },
+      //conditons that include stomach ache
     ];
 
     // Insert conditions if they don't exist

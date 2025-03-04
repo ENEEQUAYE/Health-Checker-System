@@ -126,11 +126,23 @@ document.addEventListener("DOMContentLoaded", async function () {
             const diagnosis = await response.json();
             diagnosis.forEach(d => {
                 typeMessage(
-                    `Condition: ${d.condition}\nMatch Confidence: ${d.match_percentage}%\nAdvice: ${d.advice}\n\nDisclaimer: This is not a medical diagnosis. Please consult a healthcare professional for an accurate diagnosis.`,
+                    `Condition: ${d.condition}\n` +
+                    `Match Confidence: ${d.match_percentage}%\n` +
+                    `Advice: ${d.advice}\n\n` +
+                    `Disclaimer: This is not a medical diagnosis. Please consult a healthcare professional for an accurate diagnosis.`,
                     "bot"
                 );
             });
-            typeMessage("Thank you for using our symptom checker!", "bot");
+            //wait till the results are displayed and then thank the user
+            setTimeout(() => {
+                typeMessage("Thank you for using our symptom checker!", "bot");
+            }
+                , 10000);
+            // typeMessage("Thank you for using our symptom checker!", "bot");
+            //reload page
+            setTimeout(() => {
+                window.location.reload();
+            }, 50000);
         } catch (error) {
             addMessage("Error analyzing symptoms. Please try again later.", "bot");
         }
